@@ -6,11 +6,12 @@ PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 export APP_ENV=prod
 
 cd "$PROJECT_DIR"
-composer install # Вначале устанавливаем с dev, чтобы сгенерировать OpenAPI
+composer install --no-interaction # Вначале устанавливаем с dev, чтобы сгенерировать OpenAPI
 vendor/bin/openapi src -o public/docs/openapi.yaml
-composer install --no-dev --optimize-autoloader --classmap-authoritative
+composer install --no-dev --optimize-autoloader --classmap-authoritative --no-interaction
 
-vendor/bin/phinx migrate
+composer db:create
+composer db:migrate
 
 mkdir -p var/log
 

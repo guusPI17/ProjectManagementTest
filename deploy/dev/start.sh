@@ -5,8 +5,10 @@ cd "$(dirname "$0")/../.."
 export APP_ENV=dev
 
 composer install
-vendor/bin/phinx migrate
 vendor/bin/openapi src -o public/docs/openapi.yaml
+
+composer db:create
+composer db:migrate
 
 HOST_PORT="${APP_PORT:-8000}"
 
