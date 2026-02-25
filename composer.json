@@ -1,0 +1,54 @@
+{
+    "name": "app/project-management",
+    "description": "REST API для управления проектами компании",
+    "type": "project",
+    "require": {
+        "php": "^8.3",
+        "ext-pdo": "*",
+        "ext-pdo_pgsql": "*",
+        "robmorgan/phinx": "^0.16",
+        "symfony/config": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/dotenv": "^7.0",
+        "symfony/http-client": "^7.0",
+        "symfony/http-foundation": "^7.0",
+        "symfony/property-access": "^7.0",
+        "symfony/routing": "^7.0",
+        "symfony/serializer": "^7.0",
+        "symfony/validator": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "zircote/swagger-php": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "cs:fix": "php-cs-fixer fix",
+        "cs:check": "php-cs-fixer fix --dry-run --diff",
+        "test": [
+            "@cs:check",
+            "phpunit"
+        ],
+        "db:create": "php bin/create-database.php",
+        "db:migrate": "phinx migrate",
+        "db:rollback": "phinx rollback",
+        "db:status": "phinx status",
+        "cache:clear": "php bin/clear-cache.php",
+        "openapi": "openapi src -o public/docs/openapi.yaml",
+        "dev:start": "bash deploy/dev/start.sh",
+        "prod:start": "bash deploy/prod/start.sh"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
